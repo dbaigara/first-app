@@ -9,3 +9,15 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+const db = require('./db');
+
+app.get('/tasks', (req, res) => {
+  db.all('SELECT * FROM tasks', (err, rows) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
