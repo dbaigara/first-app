@@ -37,3 +37,15 @@ app.post('/tasks', (req, res) =>{
 	}
   });
 });
+
+app.put('/tasks/:id', (req, res) => {
+  const { id } = req.params;
+  const { completed } = req.body;
+  db.run('UPDATE tasks SET completed = ? WHERE id = ?', [completed, id], function(err) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.json({ success: true });
+    }
+  });
+});
