@@ -21,3 +21,19 @@ app.get('/tasks', (req, res) => {
     }
   });
 });
+
+app.use(express.json());
+
+app.post('/tasks', (req, res) =>{
+  const {title} = req.body;
+  if(!title){
+    return res.status(400).json({ error: 'Title is required'});
+  }
+  db.run('INSERT INTO tasks (title, completed) VALUES (?, ?)', [title, false], function(err){
+	if (err){
+	  res.status(500).send(err);
+	} else {
+	  res.json({ id: this.lastID });
+	}
+  });
+});
