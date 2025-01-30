@@ -49,3 +49,14 @@ app.put('/tasks/:id', (req, res) => {
     }
   });
 });
+
+app.delete('/tasks/:id', (req, res) => {
+  const { id } = req.params;
+  db.run('DELETE FROM tasks WHERE id = ?', [id], function(err) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.json({ success: true });
+    }
+  });
+});
