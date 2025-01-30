@@ -6,7 +6,7 @@ function App() {
 
   // Загрузка задач при монтировании компонента
   useEffect(() => {
-    fetch('/api/tasks') // Используем /api перед маршрутом
+    fetch('/api/tasks')
       .then(response => response.json())
       .then(data => setTasks(data));
   }, []);
@@ -14,7 +14,7 @@ function App() {
   // Добавление новой задачи
   const addTask = () => {
     if (!newTask.trim()) return; // Проверка на пустую строку
-    fetch('/api/tasks', { // Используем /api перед маршрутом
+    fetch('/api/tasks', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title: newTask })
@@ -29,7 +29,7 @@ function App() {
   // Обновление статуса задачи
   const toggleTask = (id) => {
     const task = tasks.find(task => task.id === id);
-    fetch(`/api/tasks/${id}`, { // Используем /api перед маршрутом
+    fetch(`/api/tasks/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ completed: !task.completed })
@@ -43,9 +43,7 @@ function App() {
 
   // Удаление задачи
   const deleteTask = (id) => {
-    fetch(`/api/tasks/${id}`, { // Используем /api перед маршрутом
-      method: 'DELETE'
-    })
+    fetch(`/api/tasks/${id}`, { method: 'DELETE' })
       .then(() => {
         setTasks(tasks.filter(task => task.id !== id));
       });
