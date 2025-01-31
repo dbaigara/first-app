@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 function App() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001'; // Для локальной разработки
 
   // Загрузка задач при монтировании компонента
   useEffect(() => {
@@ -11,10 +12,7 @@ function App() {
       .then(data => setTasks(data));
   }, [backendUrl]);
 
-
-const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001'; // Для локальной разработки
-
-const addTask = () => {
+ const addTask = () => {
   if (!newTask.trim()) return;
   fetch(`${backendUrl}/api/tasks`, {
     method: 'POST',
