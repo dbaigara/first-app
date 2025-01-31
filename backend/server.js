@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const db = require('./db');
-const port = process.env.PORT || 3001;
+const port = process.env.DATABASE_PORT || 3001;
 
 app.use(express.json());
 
@@ -51,5 +51,5 @@ app.delete('/api/tasks/:id', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Backend is running on http://localhost:${port}`);
+  console.log(`Backend is running on port ${port}`);
 });
