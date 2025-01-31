@@ -11,21 +11,23 @@ function App() {
       .then(data => setTasks(data));
   }, []);
 
-  // Добавление новой задачи
-  const addTask = () => {
-    if (!newTask.trim()) return; // Проверка на пустую строку
-    fetch('/api/tasks', { // Используем /api перед маршрутом
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: newTask })
+
+const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001'; // Для локальной разработки
+
+const addTask = () => {
+  if (!newTask.trim()) return;
+  fetch(`${backendUrl}/api/tasks`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title: newTask })
+  })
+    .then(response => response.json())
+    .then(data => {
+      setTasks([...tasks, { id: data.id, title: newTask, completed: false }]);
+      setNewTask('');
     })
-      .then(response => response.json())
-      .then(data => {
-        setTasks([...tasks, { id: data.id, title: newTask, completed: false }]);
-        setNewTask('');
-      })
-      .catch(error => console.error('Error:', error));
-  };
+    .catch(error => console.error('Error:', error));
+};
 
   // Обновление статуса задачи
   const toggleTask = (id) => {
