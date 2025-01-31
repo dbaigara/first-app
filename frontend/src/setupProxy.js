@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://localhost:3001',
+      target: 'https://first-app-ldvx.onrender.com',
       changeOrigin: true,
     })
   );
