@@ -6,10 +6,10 @@ function App() {
 
   // Загрузка задач при монтировании компонента
   useEffect(() => {
-    fetch('/api/tasks') // Используем /api перед маршрутом
+    fetch('${backendUrl}/api/tasks') // Используем /api перед маршрутом
       .then(response => response.json())
       .then(data => setTasks(data));
-  }, []);
+  }, [backendUrl]);
 
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001'; // Для локальной разработки
@@ -32,7 +32,7 @@ const addTask = () => {
   // Обновление статуса задачи
   const toggleTask = (id) => {
     const task = tasks.find(task => task.id === id);
-    fetch(`/api/tasks/${id}`, { // Используем /api перед маршрутом
+    fetch(`${backendUrl}/api/tasks/${id}`, { // Используем /api перед маршрутом
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ completed: !task.completed })
@@ -46,7 +46,7 @@ const addTask = () => {
 
   // Удаление задачи
   const deleteTask = (id) => {
-    fetch(`/api/tasks/${id}`, { // Используем /api перед маршрутом
+    fetch(`${backendUrl}/api/tasks/${id}`, { // Используем /api перед маршрутом
       method: 'DELETE'
     })
       .then(() => {
