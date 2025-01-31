@@ -5,6 +5,10 @@ const port = process.env.PORT || 3001;
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
 // Все маршруты начинаются с /api
 app.get('/api/tasks', (req, res) => {
   db.all('SELECT * FROM tasks', (err, rows) => {
