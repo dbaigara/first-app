@@ -23,7 +23,8 @@ function App() {
       .then(data => {
         setTasks([...tasks, { id: data.id, title: newTask, completed: false }]);
         setNewTask('');
-      });
+      })
+      .catch(error => console.error('Error:', error));
   };
 
   // Обновление статуса задачи
